@@ -13,7 +13,8 @@ async function consumeMessages() {
 
 	channel_one.consume(que_one.queue, (msg) => {
 		const data = JSON.parse(msg.content);
-		console.log(data);
+
+		console.log('[Logger Service] [Message received] : ', JSON.stringify(data));
 
 		channel_one.ack(msg);
 	});
