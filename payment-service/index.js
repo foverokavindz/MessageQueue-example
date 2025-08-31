@@ -56,8 +56,8 @@ class PaymentService {
 }
 
 class Producer {
-	constructor() {
-		this.channel = PaymentService.channel;
+	constructor(channel) {
+		this.channel = channel;
 	}
 
 	async publishPaymentMessage(routingKey, orderData) {
@@ -100,7 +100,7 @@ class Consumer {
 				const data = JSON.parse(msg.content.toString());
 				console.log('📨 Received message:', data);
 
-				const producer = new Producer();
+				const producer = new Producer(this.channel);
 				producer.publishPaymentMessage('order.complete', data);
 
 				this.channel.ack(msg);

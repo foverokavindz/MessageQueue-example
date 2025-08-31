@@ -56,8 +56,8 @@ class InventoryService {
 }
 
 class Producer {
-	constructor() {
-		this.channel = InventoryService.channel;
+	constructor(channel) {
+		this.channel = channel;
 	}
 
 	async publishInventoryMessage(routingKey, orderData) {
@@ -72,7 +72,7 @@ class Producer {
 		await this.channel.publish('order-process-exchange', routingKey, Buffer.from(JSON.stringify(inventoryMessage)));
 		console.log(`Message published to exchange order-process-exchange with routing key ${routingKey}`);
 
-		await this.publishStatusMessage(orderData.orderId, 'order.status', 'PAYMENT_CONFIRMED');
+		await this.publishStatusMessage(orderData.orderId, 'order.status', 'INVENTORY_CONFIRMED');
 	}
 
 	async publishStatusMessage(orderId, routingKey, status) {
@@ -100,7 +100,7 @@ class Consumer {
 				const data = JSON.parse(msg.content.toString());
 				console.log('📨 Received message:', data);
 
-				const producer = new Producer();
+				const producer = new Producer(this.channel);
 				producer.publishInventoryMessage('order.payment', data);
 
 				this.channel.ack(msg);

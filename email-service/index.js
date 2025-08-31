@@ -56,8 +56,8 @@ class EmailService {
 }
 
 class Producer {
-	constructor() {
-		this.channel = EmailService.channel;
+	constructor(channel) {
+		this.channel = channel;
 	}
 
 	async publishStatusMessage(orderId, routingKey, status) {
@@ -84,7 +84,7 @@ class Consumer {
 				const data = JSON.parse(msg.content.toString());
 				console.log('📨 Received message:', data);
 
-				const producer = new Producer();
+				const producer = new Producer(this.channel);
 				producer.publishStatusMessage(data.orderId, 'order.status', 'EMAIL_SENT');
 
 				this.channel.ack(msg);
