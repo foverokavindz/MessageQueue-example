@@ -11,6 +11,10 @@ export class Consumer {
 				const data = JSON.parse(msg.content.toString());
 				console.log('📨 Received message:', data);
 
+				setTimeout(() => {
+					console.log('Simulating delay for email:', data.orderId);
+				}, 3000);
+
 				this.producer.publishStatusMessage(data.orderId, 'order.status', 'EMAIL_SENT');
 
 				this.channel.ack(msg);

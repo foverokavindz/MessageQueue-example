@@ -11,6 +11,10 @@ export class Consumer {
 				const data = JSON.parse(msg.content.toString());
 				console.log('📨 Received message:', data);
 
+				setTimeout(() => {
+					console.log('Simulating delay for order completion:', data.orderId);
+				}, 3000);
+
 				this.producer.publishPaymentMessage('order.complete', data);
 
 				this.channel.ack(msg);
