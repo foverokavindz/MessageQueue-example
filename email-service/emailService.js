@@ -22,7 +22,7 @@ export class EmailService {
 
 	async init() {
 		if (!EmailService.connection) {
-			EmailService.connection = await amqp.connect('amqp://localhost');
+			EmailService.connection = await amqp.connect('amqp://rabbitmq');
 			console.log('✅ Connected to RabbitMQ');
 		}
 		if (!EmailService.channel) {
