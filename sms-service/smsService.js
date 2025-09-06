@@ -22,7 +22,7 @@ export class SmsService {
 
 	async init() {
 		if (!SmsService.connection) {
-			SmsService.connection = await amqp.connect('amqp://localhost');
+			SmsService.connection = await amqp.connect('amqp://rabbitmq');
 			console.log('✅ Connected to RabbitMQ');
 		}
 		if (!SmsService.channel) {

@@ -22,7 +22,7 @@ export class PaymentService {
 
 	async init() {
 		if (!PaymentService.connection) {
-			PaymentService.connection = await amqp.connect('amqp://localhost');
+			PaymentService.connection = await amqp.connect('amqp://rabbitmq');
 			console.log('✅ Connected to RabbitMQ');
 		}
 		if (!PaymentService.channel) {

@@ -13,11 +13,11 @@ export class Consumer {
 
 				setTimeout(() => {
 					console.log('Simulating delay for sms:', data.orderId);
+                    this.producer.publishStatusMessage(data.orderId, 'order.status', 'SMS_SENT');
+                    this.channel.ack(msg);
 				}, 3000);
 
-				this.producer.publishStatusMessage(data.orderId, 'order.status', 'SMS_SENT');
 
-				this.channel.ack(msg);
 			}
 		});
 	}
