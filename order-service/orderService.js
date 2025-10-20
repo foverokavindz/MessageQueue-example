@@ -26,7 +26,7 @@ export class OrderService {
 	async init() {
 		// Connect to RabbitMQ server
 		if (!OrderService.connection) {
-			OrderService.connection = await amqp.connect('amqp://rabbitmq');
+			OrderService.connection = await amqp.connect('amqp://localhost');
 			console.log('✅ Connected to RabbitMQ');
 		}
 		// Create a channel for communication

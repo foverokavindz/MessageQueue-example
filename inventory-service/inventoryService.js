@@ -25,7 +25,7 @@ export class InventoryService {
 	async init() {
 		// Connect to RabbitMQ if not already connected
 		if (!InventoryService.connection) {
-			InventoryService.connection = await amqp.connect('amqp://rabbitmq');
+			InventoryService.connection = await amqp.connect('amqp://localhost');
 			console.log('✅ Connected to RabbitMQ');
 		}
 		// Create channel if not already created
